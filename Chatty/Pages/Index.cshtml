@@ -1,0 +1,51 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@section Scripts{
+    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chat")
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+        connection.start().catch(err => console.error(err.toString()));
+
+        var sendMessage = function () {
+            var textArea = document.getElementById("message");
+            if (textArea.value == null || textArea.value === "") {
+                alert("Message is empty");
+            }
+            else {
+                connection.invoke("BroadcastMessage", textArea.value);
+            }
+        };
+
+        connection.on("ReceiveMessage", (user, message) => {
+            const encodedMsg = user + " says " + message;
+            const li = document.createElement("li");
+            li.textContent = encodedMsg;
+            document.getElementById("messages").appendChild(li);
+        });
+
+    </script>
+}
+    <div class="container-fluid">
+        <h1>Chatty</h1>
+        <label class="caption"><i>Powered by SignalR</i> </label>
+        <br />
+        <br />
+        <div class="row">
+            <label class="col-lg-1" for="message">Message: </label>
+            <textarea class="col-lg-2" cols="6" rows="5" id="message"></textarea>
+             <button class="col auto btn" id="send" onclick="sendMessage()">Send</button>
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <label class="col-md-1" for="messages">Received Messages:</label>
+            <ul class="col-lg-1" id="messages"></ul>
+        </div>
+    </div>
