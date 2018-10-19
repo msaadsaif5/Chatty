@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore.Sqlite;
 
 namespace Chatty
 {
@@ -31,12 +32,13 @@ namespace Chatty
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                                                        options.UseSqlite("Data Source=chatty.db"));
 
+                
             services.AddIdentity<IdentityUser, IdentityRole>()
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
-
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                    .AddDefaultTokenProviders();
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                     .AddRazorPagesOptions(options =>
                     {
@@ -77,6 +79,7 @@ namespace Chatty
             app.UseAuthentication();
 
             app.UseMvc();
+
 
             app.UseSignalR(routes =>
             {
