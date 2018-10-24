@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore.Sqlite;
+using Chatty.Models;
 
 namespace Chatty
 {
@@ -35,7 +36,7 @@ namespace Chatty
                                                         options.UseSqlite("Data Source=chatty.db"));
 
                 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
             
@@ -71,7 +72,7 @@ namespace Chatty
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-
+                        
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
@@ -79,7 +80,6 @@ namespace Chatty
             app.UseAuthentication();
 
             app.UseMvc();
-
 
             app.UseSignalR(routes =>
             {
