@@ -80,6 +80,9 @@ namespace Chatty.Areas.Identity.Pages.Account
 
             if (result.Succeeded)
             {
+                user.SignedIn = true;
+                await _signInManager.UserManager.UpdateAsync(user);
+
                 _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.Id);
                 return LocalRedirect(returnUrl);
             }
@@ -94,6 +97,6 @@ namespace Chatty.Areas.Identity.Pages.Account
                 ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
                 return Page();
             }
-        }  
+        }
     }
 }

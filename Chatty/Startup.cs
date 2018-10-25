@@ -1,6 +1,7 @@
 using Chatty.Data;
 using Chatty.Hubs;
 using Chatty.Infrastructure;
+using Chatty.Infrastructure.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -56,7 +57,10 @@ namespace Chatty
             });
 
             services.AddSingleton<IEmailSender, EmailSender>();
-
+            
+            services.AddTransient(typeof(IRepository<,>), typeof(RepositoryBase<,>));
+            services.AddTransient<IUserRepository, UserRepository>();
+            
             services.AddSignalR();
         }
 
@@ -85,7 +89,6 @@ namespace Chatty
             {
                 routes.MapHub<ChatHub>("/chat");
             });
-
         }
     }
 }
