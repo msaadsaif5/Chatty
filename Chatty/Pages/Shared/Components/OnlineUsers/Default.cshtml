@@ -1,0 +1,13 @@
+﻿@using Chatty.Migrations
+@model IEnumerable<OnlineUserViewModel>
+<h3>Online Users</h3>
+@{
+    <ul>
+        @foreach (var user in Model)
+        {
+        <li>
+            @user.Name
+        </li>
+        }
+    </ul>
+}

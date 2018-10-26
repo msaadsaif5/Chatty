@@ -8,6 +8,6 @@ namespace Chatty.Infrastructure.DAL
 {
     public interface IUserRepository : IRepository<ApplicationUser, string>
     {
-        Task<IEnumerable<ApplicationUser>> GetOnlineUsersAsync(UserFilterCriteria criteria);
+        Task<IEnumerable<ApplicationUser>> GetFilteredUsersAsync(UserFilterCriteria criteria);
     }
 }

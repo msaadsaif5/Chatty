@@ -29,7 +29,13 @@ namespace Chatty.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
+            
             await _signInManager.SignOutAsync();
+            
+            var user = await _signInManager.UserManager.GetUserAsync(HttpContext.User);
+            user.SignedIn = false;
+            await _signInManager.UserManager.UpdateAsync(user);
+            
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)
             {

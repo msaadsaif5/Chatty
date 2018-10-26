@@ -17,7 +17,7 @@ namespace Chatty.Infrastructure.DAL
             
         }
 
-        public async Task<IEnumerable<ApplicationUser>> GetOnlineUsersAsync(UserFilterCriteria criteria)
+        public async Task<IEnumerable<ApplicationUser>> GetFilteredUsersAsync(UserFilterCriteria criteria)
         {            
             if (criteria == null)
                 return await Context.ApplicationUser.AsNoTracking().ToListAsync();

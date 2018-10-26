@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore.Extensions.Internal;
 namespace Chatty.Infrastructure.DAL
 {
 
-    public abstract class RepositoryBase<T, TKey> : IRepository<T, TKey> where T : class
+    public class RepositoryBase<T, TKey> : IRepository<T, TKey> where T : class
     {
         protected readonly ApplicationDbContext Context;
 
