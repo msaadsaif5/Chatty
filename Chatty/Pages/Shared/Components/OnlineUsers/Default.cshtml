@@ -2,7 +2,7 @@
 @model IEnumerable<OnlineUserViewModel>
 <h3>Online Users</h3>
 @{
-    <ul class="list-group">
+    <ul id="onlineUsersList" class="list-group">
         @foreach (var user in Model)
         {
         <li class="list-group-item">
@@ -11,3 +11,18 @@
         }
     </ul>
 }
+<script>
+    var selectedUser;
+    var onlineUsersList = document.getElementById('onlineUsersList');
+    
+
+    onlineUsersList.addEventListener("click", function(e) {
+         
+         Array.from(this.getElementsByTagName("li")).forEach(item=>{item.classList.remove("active")});
+
+        if(e.target && e.target.nodeName == "LI") {
+            selectedUser = e.target;
+            e.target.classList.add("active");
+        }
+    });        
+</script>
