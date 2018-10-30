@@ -30,7 +30,7 @@ namespace Chatty.Infrastructure.Components
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var onlineUsers = await userRepository.GetFilteredUsersAsync(new UserFilterCriteria {IsOnline = true});
-            var model = onlineUsers.Select(usr => new OnlineUserViewModel {Id = usr.Email, IsOnline = true, Name = usr.Name});
+            var model = onlineUsers.Select(usr => new OnlineUserViewModel {Id = usr.Id, IsOnline = true, Name = usr.Name});
             return View(model);
         }
     }

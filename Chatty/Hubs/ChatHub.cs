@@ -14,6 +14,11 @@ namespace Chatty.Hubs
             return Clients.All.ReceiveMessage(GetUserName(), message);
         }
 
+        public void SendMessageToUser(string userId, string message)
+        {
+            Clients.User(userId)?.ReceiveMessage(GetUserName(), message);
+        }
+
         public void SendMessageToOthers(string message)
         {
             Clients.Others.ReceiveMessage(GetUserName(), message);

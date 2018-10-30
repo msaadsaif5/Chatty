@@ -5,14 +5,14 @@
     <ul id="onlineUsersList" class="list-group">
         @foreach (var user in Model)
         {
-        <li class="list-group-item">
+        <li class="list-group-item" value=@user.Id>            
             @user.Name
         </li>
         }
     </ul>
 }
 <script>
-    var selectedUser;
+    var selectedUserId;
     var onlineUsersList = document.getElementById('onlineUsersList');
     
 
@@ -21,7 +21,7 @@
          Array.from(this.getElementsByTagName("li")).forEach(item=>{item.classList.remove("active")});
 
         if(e.target && e.target.nodeName == "LI") {
-            selectedUser = e.target;
+            selectedUserId = e.target.getAttribute("value");
             e.target.classList.add("active");
         }
     });        

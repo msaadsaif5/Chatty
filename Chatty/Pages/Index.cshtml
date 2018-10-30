@@ -14,12 +14,18 @@
         connection.start().catch(err => console.error(err.toString()));
 
         var sendMessage = function () {
+            if (typeof selectedUserId !== "undefined"){
             var textArea = document.getElementById("message");
             if (textArea.value == null || textArea.value === "") {
                 alert("Message is empty");
             }
             else {
-                connection.invoke("BroadcastMessage", textArea.value);
+                console.log("user id is", selectedUserId);
+                connection.invoke("SendMessageToUser", selectedUserId, textArea.value);
+            }
+            }
+            else{
+                alert('No user is selected');
             }
         };
 
